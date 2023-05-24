@@ -47,12 +47,21 @@ public class MissingScriptRemover : EditorWindow
 
         for(int i=0;i<guids.Length;i++){
             string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-            GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-            if (GameObjectUtility.RemoveMonoBehavioursWithMissingScript(obj) > 0)
+            GameObject prefabInstance = PrefabUtility.LoadPrefabContents(path);
+            if (prefabInstance != null)
             {
-                count++;
+                // 子オブジェクトを取得する
+                var parentAndChildren = prefabInstance.GetComponentsInChildren<Transform>(true);
+                foreach(Transform Tsf in parentAndChildren){
+                    Debug.Log(Tsf.gameObject.name);
+                    if (GameObjectUtility.RemoveMonoBehavioursWithMissingScript(Tsf.gameObject) > 0)
+                    {
+                        count++;
+                    }
+                }
+                PrefabUtility.SaveAsPrefabAsset(prefabInstance, path);
+                PrefabUtility.UnloadPrefabContents(prefabInstance);
             }
-            // GameObjectUtility.RemoveMonoBehavioursWithMissingScript(obj);
         }
         AssetDatabase.Refresh();
         
