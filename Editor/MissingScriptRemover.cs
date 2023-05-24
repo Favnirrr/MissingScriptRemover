@@ -53,7 +53,6 @@ public class MissingScriptRemover : EditorWindow
                 // 子オブジェクトを取得する
                 var parentAndChildren = prefabInstance.GetComponentsInChildren<Transform>(true);
                 foreach(Transform Tsf in parentAndChildren){
-                    Debug.Log(Tsf.gameObject.name);
                     if (GameObjectUtility.RemoveMonoBehavioursWithMissingScript(Tsf.gameObject) > 0)
                     {
                         count++;
