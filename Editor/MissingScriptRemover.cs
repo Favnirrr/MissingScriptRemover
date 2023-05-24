@@ -3,8 +3,8 @@ using UnityEditor;
 
 public class MissingScriptRemover : EditorWindow
 {
-    [MenuItem("Tools/Remove Missing Scripts")]
-    public static void RemoveMissingScripts()
+    [MenuItem("Tools/Remove Missing Scripts/Scene")]
+    public static void RemoveMissingScriptsOnScene()
     {
         int count = 0;
         GameObject[] objects = FindObjectsOfType<GameObject>();
@@ -24,5 +24,34 @@ public class MissingScriptRemover : EditorWindow
         {
             Debug.Log("No missing scripts found.");
         }
+    }
+
+    [MenuItem("Tools/Remove Missing Scripts/Prefab")]
+    public static void RemoveMissingScriptsOnPrefab()
+    {
+        // 選択したprefabのGUIDを取得
+        string[] guids = Selection.assetGUIDs;
+        if (guids.Length == 0)
+        {
+            Debug.Log("No prefab selected.");
+            return;
+        }
+        // string[] allGUID = AssetDatabase.FindAssets("t:prefab");
+
+        // 削除したコンポーネントのカウンター
+        int count = 0;
+
+        for(int i=0;i<guids.Length;i++){
+            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+            GameObject obj = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (GameObjectUtility.RemoveMonoBehavioursWithMissingScript(obj) > 0)
+            {
+                count++;
+            }
+            // GameObjectUtility.RemoveMonoBehavioursWithMissingScript(obj);
+        }
+        AssetDatabase.Refresh();
+        
+        Debug.Log($"Removed {count} Missing Scripts On Selected Prefab.");
     }
 }
