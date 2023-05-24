@@ -31,6 +31,7 @@ public class MissingScriptRemover : EditorWindow
     {
         // 選択したprefabのGUIDを取得
         string[] guids = Selection.assetGUIDs;
+
         // 選択したprefabがない場合
         if (guids.Length == 0)
         {
@@ -40,7 +41,6 @@ public class MissingScriptRemover : EditorWindow
             Debug.LogWarning("No prefab selected.");
             return;
         }
-        // string[] allGUID = AssetDatabase.FindAssets("t:prefab");
 
         // 削除したコンポーネントのカウンター
         int count = 0;
