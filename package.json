@@ -1,0 +1,21 @@
+{
+    "name": "com.github.favnirrr.missingscriptremover",
+    "displayName": "MissingScriptRemover", 
+    "version": "1.2.0",               
+    "unity": "2019.4",
+    "description": "Unityのアクティブなシーン内GameObject、及びPrefabの、missingになっているScriptコンポーネントを自動的に削除するEditor拡張です。\nThis is an editor extension for Unity that automatically removes missing script components from GameObjects and Prefabs within the active scene.",
+    "author": {
+        "name": "Favnirrr",
+        "url": "https://github.com/Favnirrr"
+    },
+
+    "keywords": [
+        "editor extension",
+        "Unity editor",
+        "Script",
+        "missing"
+    ],
+
+    "dependencies": {
+    }
+}
